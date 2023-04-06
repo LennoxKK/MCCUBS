@@ -17,14 +17,14 @@ GENDER = (
 )
 
 
-class Member(models.Model):
+class User(models.Model):
     reg_no = models.CharField('Registration number',
-                              max_length=18, unique=True)
+                              max_length=18, unique=True,default='Registration number')
     first_name = models.CharField('First name', max_length=30)
     sir_middle_name = models.CharField('Sir plus middle name', max_length=100)
     level = models.IntegerField('Year of study')
     date_registered = models.DateField(auto_now_add=True)
-    phone_number = models.CharField(max_length=12, default='0720000000')
+    phone_number = models.CharField(max_length=12, default='0720000000',unique=True)
     place_of_residence = models.CharField(max_length=7, choices=RESIDENCE)
     group_number = models.PositiveBigIntegerField(default=0)
     gender = models.CharField(max_length=1, choices=GENDER)

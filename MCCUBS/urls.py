@@ -17,12 +17,15 @@ from distutils.log import debug
 import debug_toolbar
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('Member/', include('Members.urls'),),
+    path('Member/', include(('Members.urls'),namespace="Members")),
+    path('User/', include(('User.urls'),namespace='Users')),
     path('__debug__', include(debug_toolbar.urls))
 
 ]
-
+urlpatterns += staticfiles_urlpatterns()
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# python manage.py sqlclear users > drop_Users_userprofile

@@ -4,12 +4,132 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Update</title>
+    {% load widget_tweaks %} {% load static %}
+    <link rel="stylesheet" href="{% static 'Members/style/style.css' %}" />
   </head>
   <body>
-    <form action="" method="post">
-      {% csrf_token %} {{ form.as_p }}
-      <input type="submit" value="Save" />
-    </form>
+    <main>
+      <div class="box">
+        <div class="inner-box">
+          <div class="forms-wrap">
+            <form
+              action=""
+              autocomplete="off"
+              class="sign-in-form"
+              method="post"
+            >
+              <div class="logo">
+                <img
+                  src="{% static 'Members/update_img/mcculogo.png' %}"
+                  alt="easyclass"
+                />
+                <h4>MCCU</h4>
+              </div>
+              {% csrf_token %}
+
+              <div class="heading">
+                <h2>Welcome Home</h2>
+                <h6>Do you want to know more?</h6>
+                <a href="#" class="toggle">MORE</a>
+              </div>
+              <div class="actual-form">
+                <div class="input-wrap">
+                  {% render_field form.first_name %}
+                </div>
+                <div class="input-wrap">
+                  {% render_field form.sir_middle_name %}
+                </div>
+                <div class="input-wrap">
+                  {% render_field form.phone_number %}
+                </div>
+                <div class="input-wrap">
+                  {% render_field form.reg_no %}
+                </div>
+                <div class="input-wrap">
+                  {% render_field form.level %}
+                </div>
+                <div class="input-wrap">
+                  {% render_field form.place_of_residence class="input-field" %}
+                </div>
+                <div class="input-wrap">
+                  {% render_field form.gender class="input-field" %}
+                </div>
+
+                <input type="submit" value="update" class="sign-btn" />
+              </div>
+            </form>
+
+            <form
+              action=""
+              autocomplete="off"
+              class="sign-up-form"
+              method="post"
+            >
+              <div class="logo">
+                <img
+                  src="{% static 'Members/update_img/mcculogo.png' %}"
+                  alt="mccu"
+                />
+                <h4>MCCU</h4>
+              </div>
+
+              <div class="heading">
+                <h2>Get Started</h2>
+                <h6>Are you a bible study member ? </h6>
+                <br>
+                <br>
+                <a href="#" class="toggle">UPDATE</a>
+              </div>
+
+      
+
+               
+              </div>
+            </form>
+          </div>
+
+          <div class="carousel">
+            <div class="images-wrapper">
+              <img
+                src="{% static 'Members/update_img//image1.png' %}"
+                class="image img-1 show"
+                alt=""
+              />
+              <img
+                src="{% static 'Members/update_img//image2.png' %}"
+                class="image img-2"
+                alt=""
+              />
+              <img
+                src="{% static 'Members/update_img//image3.png' %}"
+                class="image img-3"
+                alt=""
+              />
+            </div>
+
+            <div class="text-slider">
+              <div class="text-wrap">
+                <div class="text-group">
+                  <h2>Bereans Night and Presentaions!</h2>
+                  <h2>Get refreshed as you delve into the word.</h2>
+                  <h2>Growth through Bible study</h2>
+                </div>
+              </div>
+
+              <div class="bullets">
+                <span class="active" data-value="1"></span>
+                <span data-value="2"></span>
+                <span data-value="3"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Javascript file -->
+
+    <script src="{% static 'Members/style/app.js' %}"></script>
   </body>
 </html>

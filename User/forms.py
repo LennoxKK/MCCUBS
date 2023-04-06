@@ -1,12 +1,12 @@
 
-from .models import Member
+from .models import User
 from django import forms
 from xml.dom import ValidationErr
 
 
-class MembersForm(forms.ModelForm):
+class UserRegForm(forms.ModelForm):
     class Meta:
-        model = Member
+        model = User
         fields = [
             'first_name',
             'sir_middle_name',

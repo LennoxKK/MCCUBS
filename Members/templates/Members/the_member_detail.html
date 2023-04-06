@@ -1,7 +1,14 @@
 {% extends 'Members/base.html' %} {% block content %}
 <style>
   .detail {
-    background: linear-gradient(to right, #fff, rgb(50, 4, 4));
+    background: linear-gradient(
+      to right,
+      #cdcbc1,
+      #cdcbc1,
+      #cdcbc1,
+      rgb(8, 8, 148),
+      #d31634
+    );
     position: absolute;
     height: calc(350px);
     border-radius: 10px;
@@ -63,6 +70,7 @@
     <p>Date : {{object.date_registered}}</p>
     <p>year_of_study : {{object.level}}</p>
     <p>Phone : {{object.phone_number}}</p>
+    <p>Gender : {{object.gender}}</p>
 
     <button class="e-btn">
       <a href="{% url 'Members:member-update' object.id %}">Edit</a>

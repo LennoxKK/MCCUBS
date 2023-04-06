@@ -1,0 +1,35 @@
+{% extends "Members/base.html" %} {% csrf_token %} {% load crispy_forms_tags %}
+{% block content %}
+<!-- Bootstrap CSS -->
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+  crossorigin="anonymous"
+/>
+<div class="content-section">
+  <!-- Sign up form -->
+  <form method="POST" novalidate>
+    <fieldset class="form-group">
+      {% csrf_token %}
+      <legend class="border-bottom mb-4">Log in</legend>
+      {{ form|crispy }}
+    </fieldset>
+    <div class="form-group">
+      <button class="btn btn-outline-info" type="submit">Login</button>
+    </div>
+  </form>
+  <!-- Sign in form -->
+  <div class="border-top pt-3">
+    <small class="text-muted">
+      Do you need an account?
+      <a class="ml-2" href="{% url 'Users:register' %}">Sign up now</a>
+    </small>
+  </div>
+</div>
+<script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+  crossorigin="anonymous"
+></script>
+{% endblock %}
