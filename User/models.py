@@ -1,5 +1,8 @@
 from django.db import models
 from django.urls import reverse
+from PIL import Image
+from django.contrib.auth.models import User as Ad
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 # Create your models here.
 
@@ -19,7 +22,7 @@ GENDER = (
 
 class User(models.Model):
     reg_no = models.CharField('Registration number',
-                              max_length=18, unique=True,default='Registration number')
+                              max_length=30, unique=True,default='Registration number')
     first_name = models.CharField('First name', max_length=30)
     sir_middle_name = models.CharField('Sir plus middle name', max_length=100)
     level = models.IntegerField('Year of study')
@@ -36,5 +39,73 @@ class User(models.Model):
         return self.first_name + " " + self.sir_middle_name
 
 
-# m = Members(reg_no = "F17/1759/2019",first_name = 'Lennox',sir_middle_name = " Kahati Kanyoe",level = 1,date_registered = 122, phone_number = '0794401700",place_of_residence = choice_set.CHIROMO,group_number = 7)
-#
+class Profile(models.Model):
+    user = models.OneToOneField(Ad, on_delete=models.CASCADE)
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
+
+    # Override the save method of the model
+    def save(self):
+        super().save()
+
+        img = Image.open(self.image.path) # Open image
+
+        # resize image
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size) # Resize image
+            img.save(self.image.path) # Save it again and override the larger image
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+
+    def __str__(self):
+        return f'{self.user.first_name} Profile'
+
+    # Override the save method of the model
+    def save(self):
+        super().save()
+
+        img = Image.open(self.image.path) # Open image
+
+        # resize image
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size) # Resize image
+            img.save(self.image.path) # Save it again and override the larger image
+
+
+
+
+
+class CustomUserManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('The Email field must be set')
+
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save()
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        raise ValueError('CustomUser does not support superuser creation')
+
+class CustomUser(AbstractBaseUser):
+    email = models.EmailField(unique=True)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name', 'last_name']
+
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.email

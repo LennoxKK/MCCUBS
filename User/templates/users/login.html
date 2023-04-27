@@ -1,4 +1,5 @@
-{% extends "Members/base.html" %} {% csrf_token %} {% load crispy_forms_tags %}
+{% extends "users/base.html" %} {% csrf_token %} {% load crispy_forms_tags %}
+<!-- Block-->
 {% block content %}
 <!-- Bootstrap CSS -->
 <link
@@ -7,6 +8,7 @@
   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
   crossorigin="anonymous"
 />
+
 <div class="content-section">
   <!-- Sign up form -->
   <form method="POST" novalidate>

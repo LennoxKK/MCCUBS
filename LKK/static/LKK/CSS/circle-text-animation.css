@@ -1,0 +1,96 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: monospace;
+    box-sizing: border-box;
+}
+body{
+    background-size: cover;
+    background-repeat: repeat-x;
+    background: #673ab7;
+    background-position: center;
+}
+section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    transform-style: preserve-3d;
+}
+.circle{
+    transform-style: preserve-3d;
+    animation: lenno 8s linear infinite;
+}
+@keyframes lenno{
+    0%{
+        transform: perspective(1000px) rotateY(360deg) rotateX(15deg);
+    }
+    100%{
+        transform: perspective(1000px) rotateY(0deg) rotateX(15eg);
+    }
+}
+.circle span{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fff;
+    color: #35146f;
+    font-size: 4em;
+    padding: 5px 11px;
+    border-top: 4px solid #35146f;
+    border-bottom: 4px solid #35146f;
+    transform-style: preserve-3d;
+    transform-origin: center;
+    transform: rotateY(calc(var(--i) * calc(360deg / var(--size))))
+    translateZ(200px);
+}
+.circle span::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 400px);
+    background: #fff;
+    transform:  translateZ(-5px);
+
+}
+.circle span::after{
+    content: "";
+    background: #35146f;
+    color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: calc(100vh - 560px);
+   
+    transform:  translateZ(-5px);
+    transform: translateY(-100px);
+
+}
+@media (max-width:900px) {
+    .circle span{
+        transform: rotateY(calc(var(--i) * calc(360deg / var(--size))))
+        translateZ(190px);
+    }
+}
+@media (max-width:400px) {
+    .circle span{
+        transform: rotateY(calc(var(--i) * calc(360deg / var(--size))))
+        translateZ(80px);
+        font-weight: bolder;
+        font-size: 1.3em;
+        color:black ;
+    }
+    .circle span::after {
+        width: 10px;
+        transform: translateY(-90px)
+    }
+    .circle span::before {
+        height: calc(100vh - 495px);
+      
+    }
+
+}
+

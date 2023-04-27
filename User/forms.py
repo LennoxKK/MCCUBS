@@ -2,6 +2,9 @@
 from .models import User
 from django import forms
 from xml.dom import ValidationErr
+from django.contrib.auth.models import User as Ad
+from django.contrib.auth.forms import UserCreationForm
+from .models import Profile,UserProfile
 
 
 class UserRegForm(forms.ModelForm):
@@ -17,29 +20,6 @@ class UserRegForm(forms.ModelForm):
             'gender'
         ]
 
-        widgets = {
-            "level": forms.NumberInput(attrs={"class": "input-field", "placeholder": "year of study"}),
-            # "gender":forms.RadioSelect(attrs={"class":"input-field"}),
-            # "leader_status":forms.CheckboxInput(attrs={"class":"input-field","placeholder":"Want to be a bs leader?"}),
-            "first_name": forms.TextInput(attrs={"class": "input-field", "placeholder": "first name"}),
-            "sir_middle_name": forms.TextInput(attrs={"class": "input-field", "placeholder": "sir name"}),
-            "phone_number": forms.TextInput(attrs={"class": "input-field", "placeholder": "Phone number"}),
-            "sir_middle_name": forms.TextInput(attrs={"class": "input-field", "placeholder": "Other Two"}),
-            "reg_no": forms.TextInput(attrs={"class": "input-field", "placeholder": "Reg No"}),
-
-        }
-
-        labels = {
-
-            "first_name": "",
-            "level": "",
-            "sir_name": "",
-            "phone_number": "",
-            "reg_no": "",
-            "place_of_residence": "",
-            "sir_middle_name": "",
-            'gender': ''
-        }
 
     def clean_level(self, *args, **kwargs):
         level = self.cleaned_data.get('level')
@@ -50,3 +30,34 @@ class UserRegForm(forms.ModelForm):
             return level
         else:
             raise ValidationErr(f"Please fill the year of study field")
+
+
+class UserRegisterForm(UserCreationForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = Ad
+        fields = ['username', 'email', 'password1', 'password2']
+
+# Create a UserUpdateForm to update a username and email
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+    class Meta:
+        model = Ad
+        fields = ['username', 'email']
+# Create a UserUpdateForm to update a username and email
+class CUserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+    class Meta:
+        model = User
+        fields = ['first_name', 'email']
+
+# Create a ProfileUpdateForm to update image.
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']
+class UserProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['image']

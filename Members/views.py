@@ -2,6 +2,7 @@
 from .forms import MembersForm
 import csv
 from django.shortcuts import get_object_or_404,HttpResponse
+from django.contrib.auth.decorators import login_required # Import login_required decorator
 from .models import Member
 
 
@@ -14,7 +15,7 @@ from django.views.generic import (
 )
 
 # Create your views here.
-
+@login_required
 def _export_(request):
     response = HttpResponse(content_type='text/csv')
 
@@ -43,10 +44,9 @@ class MemberCreateView(CreateView):
 
 
 class MemberListView(ListView):
-    template_name = "Members/the_member_list.html"
+    template_name = "Members/home.html"
     context_object_name = "list"
     queryset = Member.objects.order_by('place_of_residence')
-
 
 class MemberDetailView(DetailView):
     template_name = "Members/the_member_detail.html"
